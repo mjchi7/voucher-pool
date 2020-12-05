@@ -1,0 +1,12 @@
+version: "3.7"
+services:
+  postgresql:
+    image: postgres
+    container_name: postgresql_voucherpool
+    restart: always
+    ports:
+      - 5433:5432
+    environment:
+      - POSTGRES_USER=voucherpool
+      - POSTGRES_PASSWORD=voucherpool
+      - POSTGRES_DB=voucherpool

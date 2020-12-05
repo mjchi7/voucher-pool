@@ -1,0 +1,106 @@
+plugins {
+	id 'org.springframework.boot' version '2.4.0'
+	id 'io.spring.dependency-management' version '1.0.10.RELEASE'
+	id 'java'
+}
+
+group = 'com.boost'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	compileOnly 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	runtimeOnly 'org.postgresql:postgresql'
+	compile 'org.liquibase:liquibase-core:3.8.0'
+	compile 'org.liquibase.ext:liquibase-hibernate5:3.10.1'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+test {
+	useJUnitPlatform()
+}
+
+
+Properties appProps = new Properties()
+appProps.load(new FileInputStream("${project.projectDir}/src/main/resources/application.properties"))
+
+task generateChangeLog(type: JavaExec){
+	description = 'Generate diff'
+	group = 'com.boost.gradle'
+
+	classpath sourceSets.main.runtimeClasspath
+
+	main = "liquibase.integration.commandline.Main"
+
+	def changelogPathName = appProps.getProperty("liquibase.changelog.path") + "/" + project.version
+	File changelogPathWithVersion = new File(changelogPathName)
+	if ( !changelogPathWithVersion.exists() ){
+		println("Not exists")
+		println(changelogPathWithVersion.mkdir());
+	} else {
+		println("Exists")
+	}
+
+	def now = new Date().format("yyyMMddHHmmss")
+
+	args "--changeLogFile=" + changelogPathName + "/" + now + "_changelog.yaml"
+	args "--referenceUrl=hibernate:spring:" + appProps.getProperty("liquibase.package.toscan") + "?" +
+			"dialect=" + appProps.getProperty("spring.jpa.properties.hibernate.dialect") +
+			"&hibernate.physical_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy&hibernate.implicit_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy"
+	args "--username=" + appProps.getProperty("spring.datasource.username")
+	args "--password=" + appProps.getProperty("spring.datasource.password")
+	args "--url=" + appProps.getProperty("spring.datasource.url")
+	args "--driver=" + appProps.getProperty("spring.datasource.driver-class-name")
+	args "--logLevel=INFO"
+	args "diffChangeLog"
+}
+
+task liquibasePreUpdate(type: JavaExec){
+	description = "Apply pre updates to jdbc"
+	group = "com.boost.gradle"
+	classpath sourceSets.main.runtimeClasspath
+
+	main = "liquibase.integration.commandline.Main"
+
+	args "--changeLogFile=" + appProps.getProperty("liquibase.changelog.master.path")
+	args "--username=" + appProps.getProperty("spring.datasource.username")
+	args "--password=" + appProps.getProperty("spring.datasource.password")
+	args "--url=" + appProps.getProperty("spring.datasource.url")
+	args "--driver=" + appProps.getProperty("spring.datasource.driver-class-name")
+	args "--logLevel=" +  appProps.getProperty("liquibase.log.level")
+	args "update"
+}
+
+task liquibaseUpdate(type: JavaExec){
+	description = "Apply updates to jdbc"
+	group = "musesoftware.gradle"
+	classpath sourceSets.main.runtimeClasspath
+
+	main = "liquibase.integration.commandline.Main"
+
+	args "--changeLogFile=" + appProps.getProperty("liquibase.changelog.master.path")
+	args "--username=" + appProps.getProperty("spring.datasource.username")
+	args "--password=" + appProps.getProperty("spring.datasource.password")
+	args "--url=" + appProps.getProperty("spring.datasource.url")
+	args "--driver=" + appProps.getProperty("spring.datasource.driver-class-name")
+	args "--logLevel=" +  appProps.getProperty("liquibase.log.level")
+	args "update"
+}
+
+generateChangeLog.dependsOn liquibasePreUpdate
+liquibaseUpdate.dependsOn generateChangeLog

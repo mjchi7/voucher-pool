@@ -1,0 +1,26 @@
+databaseChangeLog:
+- changeSet:
+    id: 1607089898912-2
+    author: MJ (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+              primaryKeyName: special_offerPK
+            name: id
+            type: BIGINT
+        - column:
+            name: discount_percentage
+            type: numeric(19, 2)
+        tableName: special_offer
+- changeSet:
+    id: 1607089898912-1
+    author: MJ (generated)
+    changes:
+    - alterSequence:
+        incrementBy: 1
+        sequenceName: hibernate_sequence
+

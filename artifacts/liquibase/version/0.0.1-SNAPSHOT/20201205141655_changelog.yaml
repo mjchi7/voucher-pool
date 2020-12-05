@@ -1,0 +1,29 @@
+databaseChangeLog:
+- changeSet:
+    id: 1607149033163-2
+    author: MJ (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            name: code
+            type: varchar(255)
+        tableName: voucher_code
+- changeSet:
+    id: 1607149033163-3
+    author: MJ (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            name: name
+            type: varchar(255)
+        tableName: special_offer
+- changeSet:
+    id: 1607149033163-1
+    author: MJ (generated)
+    changes:
+    - alterSequence:
+        incrementBy: 1
+        sequenceName: hibernate_sequence
+

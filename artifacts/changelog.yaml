@@ -1,0 +1,4 @@
+databaseChangeLog:
+  - includeAll:
+      path: artifacts/liquibase/version
+      errorIfMissingOrEmpty: false

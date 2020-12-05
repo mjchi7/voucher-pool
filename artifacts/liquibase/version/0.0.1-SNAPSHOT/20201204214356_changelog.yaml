@@ -1,0 +1,38 @@
+databaseChangeLog:
+- changeSet:
+    id: 1607089460673-1
+    author: MJ (generated)
+    changes:
+    - createSequence:
+        incrementBy: 1
+        sequenceName: hibernate_sequence
+        startValue: 1
+- changeSet:
+    id: 1607089460673-2
+    author: MJ (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+              primaryKeyName: recipientPK
+            name: id
+            type: BIGINT
+        - column:
+            name: email
+            type: VARCHAR(255)
+        - column:
+            name: name
+            type: VARCHAR(255)
+        tableName: recipient
+- changeSet:
+    id: 1607089460673-3
+    author: MJ (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: email
+        constraintName: UC_RECIPIENTEMAIL_COL
+        tableName: recipient
+

@@ -1,0 +1,61 @@
+databaseChangeLog:
+- changeSet:
+    id: 1607089973137-2
+    author: MJ (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+              primaryKeyName: voucher_codePK
+            name: id
+            type: BIGINT
+        - column:
+            name: expiry_date
+            type: date
+        - column:
+            name: usage_date
+            type: date
+        - column:
+            name: recipient_id
+            type: BIGINT
+        - column:
+            name: special_offer_id
+            type: BIGINT
+        tableName: voucher_code
+- changeSet:
+    id: 1607089973137-3
+    author: MJ (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: special_offer_id
+        baseTableName: voucher_code
+        constraintName: FKer3hdfeixs3bi8hw6via8y9l7
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: special_offer
+        validate: true
+- changeSet:
+    id: 1607089973137-4
+    author: MJ (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: recipient_id
+        baseTableName: voucher_code
+        constraintName: FKg7qobrqaacptx5rxk1i39es8x
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: recipient
+        validate: true
+- changeSet:
+    id: 1607089973137-1
+    author: MJ (generated)
+    changes:
+    - alterSequence:
+        incrementBy: 1
+        sequenceName: hibernate_sequence
+
