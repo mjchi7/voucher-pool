@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Objects;
 
 @RestController
@@ -26,8 +27,8 @@ public class VoucherCodeController {
         return voucherCodeService.use(voucherCodeUsageDto);
     }
 
-    @GetMapping(value = path, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public VoucherCode search(@RequestParam String email) {
+    @GetMapping(value = path)
+    public List<VoucherCode> search(@RequestParam String email) {
         return voucherCodeService.findByRecipientEmail(email);
     }
 }

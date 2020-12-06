@@ -6,9 +6,12 @@ import com.boost.voucherpool.data.SpecialOffer;
 import com.boost.voucherpool.data.VoucherCode;
 import com.boost.voucherpool.data.dto.VoucherCodeUsageDto;
 import com.boost.voucherpool.exception.InvalidVoucherCodeException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
@@ -17,6 +20,8 @@ import java.util.UUID;
 public class VoucherCodeService {
 
     private final VoucherCodeDao voucherCodeDao;
+
+    private final Logger logger = LoggerFactory.getLogger(VoucherCodeService.class);
 
     public VoucherCodeService(VoucherCodeDao voucherCodeDao) {
         Objects.requireNonNull(voucherCodeDao);
@@ -49,9 +54,10 @@ public class VoucherCodeService {
         return vc;
     }
 
-    public VoucherCode findByRecipientEmail(String email) {
-        Optional<VoucherCode> vc = voucherCodeDao.findByRecipientEmail(email);
-        return vc.get();
+    public List<VoucherCode> findByRecipientEmail(String email) {
+        logger.info("Email query: " + email);
+        List<VoucherCode> vc = voucherCodeDao.findByRecipientEmail(email);
+        return vc;
     }
 
     private String getNewRandomCode() {
