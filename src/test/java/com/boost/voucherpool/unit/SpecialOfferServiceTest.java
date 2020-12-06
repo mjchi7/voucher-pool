@@ -5,6 +5,7 @@ import com.boost.voucherpool.dao.SpecialOfferDao;
 import com.boost.voucherpool.data.Recipient;
 import com.boost.voucherpool.data.SpecialOffer;
 import com.boost.voucherpool.data.dto.SpecialOfferDto;
+import com.boost.voucherpool.exception.ProgrammingException;
 import com.boost.voucherpool.service.SpecialOfferService;
 import com.boost.voucherpool.service.VoucherCodeService;
 import org.junit.jupiter.api.BeforeAll;
@@ -46,16 +47,17 @@ public class SpecialOfferServiceTest {
 
     @BeforeEach
     public void setup() {
-        List<Recipient> recipients = Arrays
-                .asList(new Recipient(1L, "user1", "user1@gmail.com"),
-                        new Recipient(1L, "user2", "user2@gmail.com"));
-        when(recipientDao.findAll()).thenReturn(recipients);
         this.specialOfferService = new SpecialOfferService(specialOfferDao,
                 recipientDao, voucherCodeService);
     }
 
     @Test
     public void create_validInput() {
+        List<Recipient> recipients = Arrays
+                .asList(new Recipient(1L, "user1", "user1@gmail.com"),
+                        new Recipient(1L, "user2", "user2@gmail.com"));
+        when(recipientDao.findAll()).thenReturn(recipients);
+
         SpecialOfferDto specialOfferDto = new SpecialOfferDto("Special Offer " +
                 "1", new BigDecimal("12.20"), LocalDate
                 .of(2020, 12, 25));
@@ -67,5 +69,36 @@ public class SpecialOfferServiceTest {
                 .getDiscountPercentage());
         assertEquals(specialOfferDto.getName(), capturedSo.getName());
         verify(voucherCodeService, times(2)).create(any(), any(), any());
+    }
+
+    @Test
+    public void create_invalidDiscountPctInput() {
+        SpecialOfferDto specialOfferDto_largerThan100 = new SpecialOfferDto(
+                "Special Offer " +
+                "2", new BigDecimal("120.0"), LocalDate
+                .of(2020, 12, 25));
+
+        SpecialOfferDto specialOfferDto_smallerThan0 = new SpecialOfferDto(
+                "Special Offer " +
+                "2", new BigDecimal("-10.00"), LocalDate
+                .of(2020, 12, 25));
+
+        assertThrows(ProgrammingException.class, () -> this.specialOfferService
+                .create(specialOfferDto_largerThan100));
+        assertThrows(ProgrammingException.class, () -> this.specialOfferService
+                .create(specialOfferDto_smallerThan0));
+        verify(specialOfferDao, never()).save(any());
+    }
+
+    @Test
+    public void create_invalidExpiryInput() {
+        SpecialOfferDto specialOfferDto_expiryEarlierThanToday =
+                new SpecialOfferDto("Special Offer " +
+                "2", new BigDecimal("50.0"), LocalDate
+                .of(2020, 10, 25));
+
+        assertThrows(ProgrammingException.class, () -> this.specialOfferService
+                .create(specialOfferDto_expiryEarlierThanToday));
+        verify(specialOfferDao, never()).save(any());
     }
 }

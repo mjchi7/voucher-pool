@@ -3,6 +3,7 @@ package com.boost.voucherpool.handler;
 import com.boost.voucherpool.data.dto.APIErrorData;
 import com.boost.voucherpool.exception.EmailAlreadyExistException;
 import com.boost.voucherpool.exception.InvalidVoucherCodeException;
+import com.boost.voucherpool.exception.ProgrammingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -47,6 +48,16 @@ public class GlobalExceptionHandler {
         APIErrorData errData = getBaseAPIErrorData();
         errData.setStatus(HttpStatus.NOT_FOUND.value());
         errData.setMessage(exp.toString());
+        logger.error(errData.toString());
+        return errData;
+    }
+
+    @ExceptionHandler(ProgrammingException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public APIErrorData handleProgrammingException(ProgrammingException exp) {
+        APIErrorData errData = getBaseAPIErrorData();
+        errData.setMessage("Internal Server Error");
+        errData.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
         logger.error(errData.toString());
         return errData;
     }

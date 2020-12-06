@@ -35,9 +35,17 @@ test {
 	useJUnitPlatform()
 }
 
+// Adding external files into Jar during build
+processResources {
+	from('artifacts/') {
+		into 'artifacts'
+	}
+}
 
+// Handling liquibase
 Properties appProps = new Properties()
-appProps.load(new FileInputStream("${project.projectDir}/src/main/resources/application.properties"))
+String profile = project.findProject("spring_profiles_active") ?: "dev";
+appProps.load(new FileInputStream("${project.projectDir}/src/main/resources/application-${profile}.properties"))
 
 task generateChangeLog(type: JavaExec){
 	description = 'Generate diff'

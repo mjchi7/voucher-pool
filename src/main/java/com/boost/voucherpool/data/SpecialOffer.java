@@ -23,7 +23,4 @@ public class SpecialOffer {
 
     private BigDecimal discountPercentage;
 
-    @OneToMany(mappedBy = "specialOffer")
-    @JsonIgnore
-    private List<VoucherCode> voucherCodes;
 }
