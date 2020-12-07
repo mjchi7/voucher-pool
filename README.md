@@ -15,3 +15,10 @@ The microservice has the following entities:
 3. The microservice is now available via the port :8080. 
 
 ## Usage Reference
+For API usage reference, checkout the markdowns generated from the Postman collections in `docs/generated`.
+
+## Shortcomings/Caveats
+The following is a list of items that are lacking in this project:
+1. Lacks of extensive integration test
+2. Lacks of service layer parameter verifications.
+3. Lacks of unit testing on the expiry date.
