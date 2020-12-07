@@ -10,12 +10,16 @@ The microservice has the following entities:
 
 ## Getting Started
 ### Using Docker Compose
+> Note: Currently the images is hosted in `mjchi7` private github registry
 1. Open up a terminal in the folder `voucherpool`
 2. Run `docker-compose up -d`
 3. The microservice is now available via the port :8080. 
 
 ## Usage Reference
 For API usage reference, checkout the markdowns generated from the Postman collections in `docs/generated`.
+
+## Build
+To build the webapp, simply run the command in sequence
 
 ## Shortcomings/Caveats
 The following is a list of items that are lacking in this project:

@@ -12,7 +12,7 @@ services:
       - POSTGRES_PASSWORD=voucherpool
       - POSTGRES_DB=voucherpool
   voucherpool:
-    image: ghcr.io/mjchi7/voucherpool:0.0.1-snapshot
+    image: docker.io/mjchi7/voucherpool:0.0.1-SNAPSHOT
     container_name: voucherpool-service
     ports:
       - 8080:8080
