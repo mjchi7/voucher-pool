@@ -19,6 +19,7 @@ public class RecipientService {
 
     public Recipient create(Recipient recipient) {
         Optional<Recipient> existingRecipient = recipientDao.findByEmail(recipient.getEmail());
+        // Make sure the unique constraints of email field are satisfied
         if (existingRecipient.isPresent()) {
             throw new EmailAlreadyExistException(recipient.getEmail());
         }

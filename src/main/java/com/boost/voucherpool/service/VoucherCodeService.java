@@ -49,6 +49,7 @@ public class VoucherCodeService {
         if (vc.getUsageDate() != null || LocalDate.now().isAfter(vc.getExpiryDate())) {
             throw new InvalidVoucherCodeException(vc.getCode());
         }
+        // If usage succeeded, put a usageDate.
         vc.setUsageDate(LocalDate.now());
         voucherCodeDao.save(vc);
         return vc;

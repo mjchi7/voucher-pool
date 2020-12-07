@@ -42,6 +42,7 @@ public class SpecialOfferService {
                     " " + soDto
                     .getDiscountPercentage());
         }
+        // The expiryDate cannot be earlier than LocalDate.now()
         if (LocalDate.now().isAfter(soDto.getExpiryDate())) {
             throw new ProgrammingException("Expiry date {" + soDto
                     .getExpiryDate() + "} is earlier than today {" + LocalDate
