@@ -19,7 +19,9 @@ The microservice has the following entities:
 For API usage reference, checkout the markdowns generated from the Postman collections in `docs/generated`.
 
 ## Build
-To build the webapp, simply run the command in sequence
+To build the webapp, simply run the following commands:
+1. `./gradlew bootBuildImage <user>/voucherpool:<tag-ver>`
+2. `docker push <user>/voucherpool:<tag-ver>`
 
 ## Shortcomings/Caveats
 The following is a list of items that are lacking in this project:
