@@ -7,6 +7,7 @@ import com.boost.voucherpool.exception.ProgrammingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -58,6 +59,17 @@ public class GlobalExceptionHandler {
         APIErrorData errData = getBaseAPIErrorData();
         errData.setMessage("Internal Server Error");
         errData.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+        logger.error(errData.toString());
+        return errData;
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public APIErrorData handleMethodArgumentNotValidException(MethodArgumentNotValidException exp) {
+        APIErrorData errData = getBaseAPIErrorData();
+        errData.setMessage("Invalid request body");
+        errData.setStatus(HttpStatus.BAD_REQUEST.value());
+        errData.setDetails(exp.getAllErrors());
         logger.error(errData.toString());
         return errData;
     }

@@ -1,0 +1,205 @@
+{
+	"info": {
+		"_postman_id": "9f14b1d0-1a71-4248-8395-b9b814bcaad4",
+		"name": "SpecialOffers",
+		"description": "Collections of endpoints related to the Special Offers entity",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"December Special Offer 2\",\n    \"discountPercentage\": \"30.20\",\n    \"expiryDate\": \"2020-12-31\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/offer",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"offer"
+					]
+				},
+				"description": "Create a SpecialOffer entity.\n\n```\nname: String\n    The name of the special offer.\ndiscountPercentage: String\n    The discount percentage, up to two decimal points\nexpiryDate: String\n    The expiry date. The date format is \"YYYY-MM-DD\"\n```"
+			},
+			"response": [
+				{
+					"name": "create: More than 100 discount percentage",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"December Special Offer 2\",\n    \"discountPercentage\": \"130.20\",\n    \"expiryDate\": \"2020-12-31\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/offer",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"offer"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 07 Dec 2020 04:14:31 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"exceptionId\": \"8096f7f4-dfa3-4927-8f7c-c0ca0ee0874a\",\n    \"status\": 400,\n    \"message\": \"Invalid request body\",\n    \"details\": [\n        {\n            \"codes\": [\n                \"DecimalMax.specialOfferDto.discountPercentage\",\n                \"DecimalMax.discountPercentage\",\n                \"DecimalMax.java.math.BigDecimal\",\n                \"DecimalMax\"\n            ],\n            \"arguments\": [\n                {\n                    \"codes\": [\n                        \"specialOfferDto.discountPercentage\",\n                        \"discountPercentage\"\n                    ],\n                    \"arguments\": null,\n                    \"defaultMessage\": \"discountPercentage\",\n                    \"code\": \"discountPercentage\"\n                },\n                true,\n                {\n                    \"arguments\": null,\n                    \"defaultMessage\": \"100.0\",\n                    \"codes\": [\n                        \"100.0\"\n                    ]\n                }\n            ],\n            \"defaultMessage\": \"must be less than or equal to 100.0\",\n            \"objectName\": \"specialOfferDto\",\n            \"field\": \"discountPercentage\",\n            \"rejectedValue\": 130.2,\n            \"bindingFailure\": false,\n            \"code\": \"DecimalMax\"\n        }\n    ]\n}"
+				},
+				{
+					"name": "create: Less than 0 discount percentage",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"December Special Offer 2\",\n    \"discountPercentage\": \"-30.20\",\n    \"expiryDate\": \"2020-12-31\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/offer",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"offer"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 07 Dec 2020 04:15:12 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"exceptionId\": \"c590ff84-01a4-486f-afcc-56a67017568e\",\n    \"status\": 400,\n    \"message\": \"Invalid request body\",\n    \"details\": [\n        {\n            \"codes\": [\n                \"DecimalMin.specialOfferDto.discountPercentage\",\n                \"DecimalMin.discountPercentage\",\n                \"DecimalMin.java.math.BigDecimal\",\n                \"DecimalMin\"\n            ],\n            \"arguments\": [\n                {\n                    \"codes\": [\n                        \"specialOfferDto.discountPercentage\",\n                        \"discountPercentage\"\n                    ],\n                    \"arguments\": null,\n                    \"defaultMessage\": \"discountPercentage\",\n                    \"code\": \"discountPercentage\"\n                },\n                true,\n                {\n                    \"arguments\": null,\n                    \"defaultMessage\": \"0.00\",\n                    \"codes\": [\n                        \"0.00\"\n                    ]\n                }\n            ],\n            \"defaultMessage\": \"must be greater than or equal to 0.00\",\n            \"objectName\": \"specialOfferDto\",\n            \"field\": \"discountPercentage\",\n            \"rejectedValue\": -30.2,\n            \"bindingFailure\": false,\n            \"code\": \"DecimalMin\"\n        }\n    ]\n}"
+				},
+				{
+					"name": "create",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"December Special Offer 2\",\n    \"discountPercentage\": \"30.20\",\n    \"expiryDate\": \"2020-12-31\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/offer",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"offer"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Content-Length",
+							"value": "0"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 07 Dec 2020 04:04:22 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": null
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "570cdb9a-8f60-4fae-bb4d-fa4491764d37",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "009bc68d-325a-4218-9908-1eb8c930285c",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

@@ -1,0 +1,139 @@
+{
+	"info": {
+		"_postman_id": "ae14c4ce-8622-4323-8bf1-5d33f621a772",
+		"name": "Recipient",
+		"description": "Collections of endpoints related to the Recipient entity",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"CMJ3\",\n    \"email\": \"chinmingjun83@gmail.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/recipient",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"recipient"
+					]
+				},
+				"description": "Create a Recipient Entity.\n\n```\nname: String  \n  The name of the Entity  \nemail: String  \n  The email of the Entity. Must be unique\n```"
+			},
+			"response": [
+				{
+					"name": "create",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"CMJ3\",\n    \"email\": \"chinmingjun83@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/recipient",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"recipient"
+							]
+						}
+					},
+					"code": 201,
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				},
+				{
+					"name": "create: email non unique",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"CMJ3\",\n    \"email\": \"chinmingjun83@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/recipient",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"recipient"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 07 Dec 2020 04:01:17 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"exceptionId\": \"bafde584-f0db-4467-98e1-d69fe1fe3f63\",\n    \"status\": 400,\n    \"message\": \"The email is already exists in the system. {email='chinmingjun83@gmail.com'}\",\n    \"details\": null\n}"
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "b3f8c4ef-cf81-4e3d-86d2-2d8dafaa1641",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "8c6998cc-b812-40e2-913f-234bafa1eb2f",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

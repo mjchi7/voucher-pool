@@ -1,0 +1,295 @@
+{
+	"info": {
+		"_postman_id": "eea62230-380a-4f5f-84bf-c2907555732c",
+		"name": "VoucherCode",
+		"description": "Collections of endpoints related to the VoucherCode entity",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "use",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"chinmingjun83@gmail.com\",\n    \"code\": \"f3febf49-5522-4f66-9011-25baf5c46438\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/voucher/use",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"voucher",
+						"use"
+					]
+				},
+				"description": "Use a voucher code. \n\n```\nemail: String\n    The email address associated to the voucher code.\ncode: String\n    The voucher code\n```"
+			},
+			"response": [
+				{
+					"name": "use",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"chinmingjun83@gmail.com\",\n    \"code\": \"f3febf49-5522-4f66-9011-25baf5c46438\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/voucher/use",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"voucher",
+								"use"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 07 Dec 2020 04:18:14 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 3,\n    \"recipient\": {\n        \"id\": 1,\n        \"name\": \"CMJ3\",\n        \"email\": \"chinmingjun83@gmail.com\"\n    },\n    \"specialOffer\": {\n        \"id\": 2,\n        \"name\": \"December Special Offer 2\",\n        \"discountPercentage\": 30.2\n    },\n    \"code\": \"f3febf49-5522-4f66-9011-25baf5c46438\",\n    \"expiryDate\": \"2020-12-31\",\n    \"usageDate\": \"2020-12-07\"\n}"
+				},
+				{
+					"name": "use: Using an invalid voucher code",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"chinmingjun83@gmail.com\",\n    \"code\": \"invalid-code\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/voucher/use",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"voucher",
+								"use"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 07 Dec 2020 04:18:50 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"exceptionId\": \"40a270e6-4461-49b9-b437-caaa2e1a9d93\",\n    \"status\": 404,\n    \"message\": \"Requested resource not found\",\n    \"details\": null\n}"
+				},
+				{
+					"name": "use: Using a used voucher code",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"chinmingjun83@gmail.com\",\n    \"code\": \"f3febf49-5522-4f66-9011-25baf5c46438\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/voucher/use",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"voucher",
+								"use"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 07 Dec 2020 04:18:27 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"exceptionId\": \"33064324-1baf-485c-9c97-adc9fbf435ff\",\n    \"status\": 404,\n    \"message\": \"Invalid voucher code. {voucherCode='f3febf49-5522-4f66-9011-25baf5c46438'}\",\n    \"details\": null\n}"
+				}
+			]
+		},
+		{
+			"name": "find",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/voucher?email=chinmingjun83@gmail.com",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"voucher"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "chinmingjun83@gmail.com"
+						}
+					]
+				},
+				"description": "Find voucher codes using Recipient's email\n\n```\nemail: String\n    The recipient email\n```"
+			},
+			"response": [
+				{
+					"name": "find",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/voucher?email=chinmingjun83@gmail.com",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"voucher"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "chinmingjun83@gmail.com"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 07 Dec 2020 04:16:53 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": 3,\n        \"recipient\": {\n            \"id\": 1,\n            \"name\": \"CMJ3\",\n            \"email\": \"chinmingjun83@gmail.com\"\n        },\n        \"specialOffer\": {\n            \"id\": 2,\n            \"name\": \"December Special Offer 2\",\n            \"discountPercentage\": 30.2\n        },\n        \"code\": \"f3febf49-5522-4f66-9011-25baf5c46438\",\n        \"expiryDate\": \"2020-12-31\",\n        \"usageDate\": null\n    }\n]"
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "0191f554-85cd-4f8e-b6df-10a34a257a29",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "f39a0cc7-8324-46b4-9b2b-fe418f2b0e40",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
